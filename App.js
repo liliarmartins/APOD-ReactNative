@@ -1,21 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, Platform, StatusBar } from 'react-native';
+import RenderImage from './components/RenderImageComponent/RenderImage';
+
+const date = new Date();
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Nasa - Astronomy Picture of the Day (APOD)</Text>
-      <StatusBar style="auto" />
+      <RenderImage date={date} />
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
   },
 });
