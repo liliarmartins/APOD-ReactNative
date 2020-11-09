@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native';
+const win = Dimensions.get('window');
 
 const styles = StyleSheet.create({
 
@@ -7,14 +8,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         color: "palegreen"
-    },
-
-    imageContainer: {
-        alignSelf: "center",
-        height: 200,
-        width: 300,
-        resizeMode: 'stretch',
-        margin: 5
     },
 
     imageTitle: {
@@ -31,17 +24,40 @@ const styles = StyleSheet.create({
         color: "papayawhip"
     },
 
+    imageContainer: {
+        alignSelf: "center",
+        marginTop: 30,
+        marginLeft: 30,
+        marginRight: 30,
+        height: 4*(win.width)/7,
+        width: 5*(win.width)/6,
+        resizeMode: 'contain',
+        borderColor: "papayawhip",
+        borderWidth: 1,
+        margin: 5
+    },
+
     imageExplanation: {
         marginTop: 30,
-        color: "papayawhip",
-        marginLeft: 20,
-        marginRight: 20
+        marginLeft: 30,
+        marginRight: 30,
+        color: "papayawhip"
     },
 
     showMoreText: {
+        marginTop: 20,
+        marginLeft: 30,
+        marginRight: 30,
+        marginBottom: 10,
         color: "papayawhip",
-        padding: 20,
         fontWeight: "bold"
+    },
+
+    imageCopyright: {
+        marginTop: 10,
+        marginLeft: 30,
+        marginRight: 30,
+        color: "palegreen"
     }
 })
 

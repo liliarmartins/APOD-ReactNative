@@ -11,7 +11,6 @@ const formatApiUrl = (date) => {
     Date.parse(date);
     if (date) {
       url += '&date=' + (new Date(date).toISOString().split('T')[0]);
-      console.log(url);
     }
   } catch (err) {
     console.log('Invalid date format: ', date);
@@ -23,16 +22,20 @@ function useApodAPI(date) {
   const [imageDate, setImageDate] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [imageTitle, setImageTitle] = useState('');
+  const [imageExplanation, setImageExplanation] = useState('');
+  const [imageCopyright, setImageCopyright] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       //const url = formatApiUrl(date);
-      const url = 'http://localhost:3001/';
+      const url = 'http://192.168.0.11:3001/';
       const result = await axios.get(url)
         .then(async (result) => {
           await setImageDate(result.data.date);
           await setImageUrl(result.data.url);
           await setImageTitle(result.data.title);
+          await setImageExplanation(result.data.explanation);
+          await setImageCopyright(result.data.copyright);
         })
         .catch(error => console.log(error));
     };
@@ -40,7 +43,7 @@ function useApodAPI(date) {
     fetchData();
   }, []);
 
-  return { imageDate, imageUrl, imageTitle };
+  return { imageDate, imageUrl, imageTitle, imageExplanation, imageCopyright };
 
 };
 
@@ -55,26 +58,25 @@ export default function RenderImageWithDate(props) {
 
   const onTextLayout = useCallback(e => {
     setTextFits(e.nativeEvent.lines.length <= 4);
-    // console.log(e.nativeEvent);
   }, []);
 
+  let url = imageData.imageUrl;
+  if (url === '')
+    url = 'https://media.tenor.com/images/0aa52fcc80b91529b747493f9fc2a978/tenor.gif';
 
-  const explanation = "As telescopes around planet Earth watch, Mars is growing brighter in night skies, approaching its 2020 opposition on October 13. Mars looks like it's watching too in this view of the Red Planet from September 22. Mars' disk is already near its maximum apparent size for earthbound telescopes, less than 1/80th the apparent diameter of a Full Moon. The seasonally shrinking south polar cap is at the bottom and hazy northern clouds are at the top. A circular, dark albedo feature, Solis Lacus (Lake of the Sun), is just below and left of disk center. Surrounded by a light area south of Valles Marineris, Solis Lacus looks like a planet-sized pupil, famously known as The Eye of Mars . Near the turn of the 20th century, astronomer and avid Mars watcher Percival Lowell associated the Eye of Mars with a conjunction of canals he charted in his drawings of the Red Planet. Broad, visible changes in the size and shape of the Eye of Mars are now understood from high resolution surface images to be due to dust transported by winds in the thin Martian atmosphere.";
-  formatApiUrl(props.date);
-  //console.log(imageData.imageUrl);
   return (
     <View>
       <View>
-         <Text style={styles.heading}>Nasa API - Astronomy Picture of the Day (APOD)</Text>
+        <Text style={styles.heading}>Nasa API - Astronomy Picture of the Day (APOD)</Text>
       </View>
       <ScrollView>
-        <Text style={styles.imageTitle}>{'Title: ' + 'Solis Lacus: The Eye of Mars'}</Text>
-        <Text style={styles.imageDate}>{'Picture of the day: ' + '2020-03-03'}</Text>
-        <Image source={{ uri: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/types-of-flowers-1579719085.jpg' }} style={styles.imageContainer} />
+        <Text style={styles.imageTitle}>{'Title: ' + imageData.imageTitle}</Text>
+        <Text style={styles.imageDate}>{'Picture of the day: ' + imageData.imageDate}</Text>
+        <Image source={{ uri: url }} style={styles.imageContainer} />
         <Text
           onTextLayout={onTextLayout}
           numberOfLines={showMore ? undefined : 4}
-          style={styles.imageExplanation}>{'Explanation: ' + explanation}
+          style={styles.imageExplanation}>{'Explanation: ' + imageData.imageExplanation}
         </Text>
         {!textFits &&
           <Text
@@ -82,6 +84,9 @@ export default function RenderImageWithDate(props) {
             style={styles.showMoreText}>{showMore ? 'Read less...' : 'Read more...'}</Text>
         }
       </ScrollView>
+      <View>
+      <Text style={styles.imageCopyright}>{'Copyright: ' + imageData.imageCopyright}</Text>
+      </View>
     </View>
   );
 };
