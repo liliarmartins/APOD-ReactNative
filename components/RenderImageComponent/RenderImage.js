@@ -60,10 +60,6 @@ export default function RenderImageWithDate(props) {
     setTextFits(e.nativeEvent.lines.length <= 4);
   }, []);
 
-  let url = imageData.imageUrl;
-  if (url === '')
-    url = 'https://media.tenor.com/images/0aa52fcc80b91529b747493f9fc2a978/tenor.gif';
-
   return (
     <View>
       <View>
@@ -72,7 +68,7 @@ export default function RenderImageWithDate(props) {
       <ScrollView>
         <Text style={styles.imageTitle}>{'Title: ' + imageData.imageTitle}</Text>
         <Text style={styles.imageDate}>{'Picture of the day: ' + imageData.imageDate}</Text>
-        <Image source={{ uri: url }} style={styles.imageContainer} />
+        <Image source={imageData.imageUrl ? { uri: imageData.imageUrl } : null} style={styles.imageContainer} />
         <Text
           onTextLayout={onTextLayout}
           numberOfLines={showMore ? undefined : 4}
