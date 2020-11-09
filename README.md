@@ -1,7 +1,9 @@
 # APOD-ReactNative
 
 Author: Lilia Ramalho Martins
+
 Email: rama0072@algonquinlive.com
+
 
 React Native App that uses NASA Apod API to render picture of the day
 
