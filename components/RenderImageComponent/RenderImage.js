@@ -47,8 +47,7 @@ function useApodAPI(date) {
   //useEffect hook to async fetch data from API using axios
   useEffect(() => {
     const fetchData = async () => {
-      //const url = formatApiUrl(date);
-      const url = 'http://192.168.0.11:3001/';
+      const url = formatApiUrl(date);
       const result = await axios.get(url)
         .then(async (result) => {
           await setImageDate(result.data.date);
