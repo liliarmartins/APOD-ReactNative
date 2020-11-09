@@ -1,3 +1,8 @@
+/** 
+ * @component App
+ * @author Lilia Ramalho Martins <rama0072@algonquinlive.com>
+ */
+
 import React from 'react';
 import { StyleSheet, View, Platform, StatusBar } from 'react-native';
 import RenderImage from './components/RenderImageComponent/RenderImage';

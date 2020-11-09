@@ -1,3 +1,8 @@
+/** 
+ * StyleSheet for RenderImageComponent
+ * @author Lilia Ramalho Martins <rama0072@algonquinlive.com>
+ */
+
 import { StyleSheet, Dimensions } from 'react-native';
 const win = Dimensions.get('window');
 
